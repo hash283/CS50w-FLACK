@@ -1,0 +1,337 @@
+html,body,.container-fluid,.row
+{
+	height:100%;
+	margin:0;
+}
+.container-fluid,.row
+{
+	padding:0px;
+}
+.col-sm-2
+{
+	padding:0px;
+	/*background-image:url("/static/images/bg2.png");*/
+	height:100%;
+	width:30%;
+	background: #660066;  /* fallback for old browsers */
+/*background: -webkit-linear-gradient(to right, #3c1053, #ad5389);  /* Chrome 10-25, Safari 5.1-6 */
+/*background: linear-gradient(to right, #3c1053, #ad5389); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.col-sm-10
+{
+	height:100%;
+	width:70%;
+	position:relative;
+}
+.heading
+{
+	margin-bottom:5px;
+	text-align:center;
+	font-size:35px;
+	font-weight:bold;
+	color: #999999;
+}
+.heading-img
+{
+	height:40px;
+	position:relative;
+	left:1.6px;
+	bottom:3px;
+}
+.channel_join_button
+{
+	display:none;
+	z-index:1;
+	position:absolute;
+	top:45%;
+	left:45%;
+	background-color: #46a049;
+	border-radius:4px;
+	border: none;
+	color: white;
+	opacity:0.7;
+	font-size: 22px;
+	text-align: center;
+	text-decoration: none;
+	padding: 4px 8px;
+}
+.channel_join_button:hover
+{
+	opacity:1;
+}
+.content
+{
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	text-align:center;
+	font-size:20px;
+}
+.channels li:hover,a:hover
+{
+	text-decoration:none;
+	background:#800080;
+}
+ul
+{
+	padding:0;
+	list-style-type: none;
+}
+.messages
+{
+	height:515px;
+	overflow-y:scroll;
+}
+.messages li
+{
+	font-family: Arial, Helvetica, sans-serif;
+	display: table;
+	clear: both;
+	background-color:#f2f2f2;
+	position:relative;
+	width:86%;
+	margin:auto;
+	border:1px solid  #f2f2f2;
+	border-radius:10px;
+	margin-bottom:10px;
+	padding-top:0.45rem;
+	padding-left:1.3rem;
+	padding-right:0.9rem;
+	padding-bottom:0.45rem;
+}
+.messages .arrowtip
+{
+	z-index:1;
+	clear: both;
+	border-right: 20px solid #f2f2f2;
+    border-top: 20px solid  #f2f2f2;
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid transparent;
+    content: "";
+    position: absolute;
+    right:918px;
+    top:-0.5px;
+    display:table;
+}
+.msg_username
+{
+	color: #660066;
+	float:left;
+	font-size:15px;
+	font-weight:bold;
+}
+.msg_close
+{
+	float:right;
+	font-size:24px;
+	font-weight:bold;
+}
+.msg_close:hover
+{
+	color:#cccccc;
+	cursor:pointer;
+}
+.msg_text
+{
+	font-size:17px;
+}
+.msg_timestamp
+{
+	font-size:15px;
+	font-weight:bold;
+	float:right;
+}
+li span
+{
+	display: table;
+}
+.channels li
+{
+	color: #ffffff;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:16.5px;
+	font-weight:normal;
+	padding-left:10px;
+	padding-bottom:4px;
+	padding-top:4px;
+}
+.channel_heading
+{
+	margin-left:10px;
+	color: #ffffff;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:18px;
+	font-weight:bold;
+	border-bottom:1px solid white;
+	position:relative;
+	width:90%;
+	margin-top:15px;
+	margin-bottom:5px;
+}
+.channel_button
+{
+	position:absolute;
+	right:0;
+	padding: 0px 0px;
+	border: none;
+	background:none;
+}
+.channel_button:focus
+{
+	border:none;
+	outline:0;
+}
+.fa-plus-circle
+{
+	color: white;
+}
+.fa-plus-circle:hover{
+	color:  #999999;
+}
+.tool 
+{
+  position: relative;
+  display: inline-block;
+}
+.tool .tooltiptext {
+  font-size:15px;
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 6px 1px;
+  position: absolute;
+  z-index: 2;
+  top: 120%;
+  margin-left: -70px;
+}
+.tool .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+.tool:hover .tooltiptext {
+	transition-delay: 0.3s;
+  visibility: visible;
+}
+.err_msg
+{
+	font-size:13.8px;
+	color: #ff0000;
+	padding-left:10px;
+	display:none;
+}
+.channel_cr
+{
+	display:none;
+	padding:0;
+	margin-left:10px;
+}
+::placeholder
+{
+	color:  #a6a6a6;
+}
+.channel_cr input
+{
+	text-transform: lowercase;
+	width:35%;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	padding: 5px 3px 6px 4px;
+	transition: width 0.4s ease-in-out;
+	margin-bottom: 5px;
+}
+.channel_cr input:focus
+{
+	width: 90%;
+	outline:none;
+}
+.channel_cr button
+{
+	background-color: #4CAF50;
+	border-radius:4px;
+	border: none;
+	color: white;
+	opacity:0.6;
+	font-size: 17.5px;
+	text-align: center;
+	text-decoration: none;
+	padding: 4px 8px;
+	margin-bottom:10px;
+}
+.channel_cr button
+{
+	outline: none;
+}
+.channel_cr button:hover
+{
+	opacity:1.0;
+}
+.channel_cr .channel_button_can
+{
+	background-color: #f44336;
+}
+.message
+{
+	position:relative;
+}
+.message .input
+{
+	z-index: 1;
+	height:50px;
+	width:68.85vw; 
+	font-size:18px;
+	resize:none;
+	position:absolute;
+	top:6px;
+	left:5.52vw;
+	padding-top:10px;
+	padding-left:10px;
+	box-sizing:border-box;
+	border:2px solid black;
+	border-radius:5px;
+}
+.message .input:focus
+{
+	font-weight: normal;
+	background-color: lightblue;
+	outline:0;
+}
+.message button
+{
+	z-index: 1;
+	background-color: #660066;
+	position:absolute;
+	left:75vw;
+	top:4.8px;
+	font-size:25.5px;
+	margin-left:0.25rem;
+	padding-left:11px;
+	padding-right:10px;
+	padding-top:6.5px;
+	padding-bottom: 6px;
+	border:none;
+	border-radius:30px;
+}
+.message i
+{
+	padding-left:2px;
+	padding-top:2px;
+	font-size:24px;
+	color:white;
+}
+.message button:hover
+{
+	background-color:#990099;
+}
+.message button:focus
+{
+	outline:0;
+}

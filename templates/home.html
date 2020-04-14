@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+{% block head %}
+<link rel="stylesheet" href="/static/css/main.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",function()
+{
+	if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
+    	location.reload();
+	}
+	//configuring localhost address for socketio
+	let server_add=location.protocol + '//' + document.domain + ':' + location.port;
+	// Clicking on Plus symbol shows the form
+	document.querySelector(".channel_button").onclick=function()
+	{
+		document.querySelector(".channel_name").value="";
+		document.querySelector(".channel_cr").style.display="inline";
+		document.querySelector(".channel_button_cr").style.marginLeft="10px";
+	};
+	// Clicking on Cancel hides the form
+	document.querySelector(".channel_button_can").onclick=function()
+	{
+		document.querySelector(".channel_cr").style.display="none";
+		document.querySelector(".err_msg").style.display="none";
+	};
+	// get username from localstorage
+	const username=localStorage.getItem("username");
+	//Connect the socket to the localhost Address
+	var socket=io.connect(server_add);
+	//When the socket gets connected,do the following
+	socket.on("connect", function()
+	{
+		//if someone creates a channel 
+		document.querySelector(".channels").onsubmit=function()
+		{
+			document.querySelector(".err_msg").style.display="none";
+			const cur_channels=document.getElementsByTagName("LI");
+			const channel_input=document.querySelector(".channel_name").value;
+			const channel_len=cur_channels.length;
+			//for blank input
+			if(channel_input == "")
+			{
+				document.querySelector(".err_msg").innerHTML="Please enter a valid channel name"
+				document.querySelector(".err_msg").style.display="inline";
+				return false;	
+			}
+			//if channel name already present
+			for(i = 0; i < channel_len; i++)
+			{
+				let cur_ch=cur_channels[i].innerHTML;
+				cur_ch=cur_ch.split(" ")[1];
+				if(cur_ch==channel_input)
+				{
+					document.querySelector(".err_msg").innerHTML="Channel alredy present"
+					document.querySelector(".err_msg").style.display="inline";
+					return false;	
+				}
+			}	
+			//convert the channel name to lowercase
+			const channel_name=channel_input.toLowerCase();
+			socket.emit('create channel',{"channel_name":channel_name});
+			document.querySelector(".channel_name").value="";
+			document.querySelector(".channel_cr").style.display="none";
+			document.querySelector(".err_msg").style.display="none";
+			return false;
+		};
+	});
+	//when the backend brodcasts the display channel event
+	socket.on("display channel",function(data)
+	{
+		let li=document.createElement("li");
+		const channel_url=server_add+"/"+"channel"+"/"+data["channel_name"];
+		let a=document.createElement("a");
+		a.setAttribute("href",channel_url);
+		li.innerHTML="# "+data["channel_name"];
+		a.appendChild(li);
+		document.querySelector(".channels").appendChild(a);
+	});
+});
+</script>
+{% endblock %}
+{% block channel %}
+<ul class="channels">
+<div class="channel_heading">
+<span>Channels</span>
+<button class="channel_button"><div class="tool"><i class="fa fa-plus-circle" style="font-size:22px;"></i><span class="tooltiptext">Create a channel</span></div></button>
+</div>
+<div class="err_msg">Please enter a valid channel name</div>
+<form class="channel_cr">
+<input type="text" placeholder="Name" class="channel_name"><br>
+<button class="channel_button_cr" type="submit">Create</button>
+<button class="channel_button_can" type="button">Cancel</button>
+</form>
+{% for channel in channels %}
+<a href="{{ url_for('channel',channel_name=channel) }}"><li># {{channel}}</li></a>
+{% endfor %}
+</ul>
+{% endblock %}
+{% block body %}
+<div class="col-sm-10">
+<div class="heading"><img src="/static/images/chat4.png" alt="" class="heading-img"><span>FLACK</span></div>
+<p class="content">Create your own channel or join one to start chatting with others.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block head %}
+<link rel="stylesheet" href="/static/css/main.css">
+<script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
+<script type="text/javascript" src="/static/js/channel.js"></script>
+{% endblock %}
+{% block channel %}
+<ul class="channels">
+<div class="channel_heading">
+<span>Channels</span>
+<button class="channel_button"><div class="tool"><i class="fa fa-plus-circle" style="font-size:22px;"></i><span class="tooltiptext">Create a channel</span></div></button>
+</div>
+<div class="err_msg">Please enter a valid channel name</div>
+<form class="channel_cr">
+<input type="text" placeholder="Name" class="channel_name"><br>
+<button class="channel_button_cr" type="submit">Create</button>
+<button class="channel_button_can" type="button">Cancel</button>
+</form>
+{% for channel in channels %}
+<a href="{{ url_for('channel',channel_name=channel) }}"><li data-channel="{{ channel }}"># {{channel}}</li></a>
+{% endfor %}
+</ul>
+{% endblock %}
+{% block body %}
+<div class="col-sm-10">
+<div class="heading"><img src="/static/images/chat4.png" alt="" class="heading-img"><span>FLACK</span></div>
+<button class="channel_join_button">Join Channel</button>
+<ul class="messages">
+{% for message in channels[channel_name]["Messages"] %}
+<li class="messages_items"><span class="msg_username">@{{message.username}}</span><br><span class="msg_text">{{message.text}}</span>
+<span class="msg_timestamp">{{message.timestamp}}</span><span class="arrowtip"></span></li>
+{% endfor %}
+</ul>
+<form class="message">
+<textarea class="input" rows="2" cols="50" placeholder="Type a message" required></textarea>
+<button type="submit"><i class="material-icons">send</i></button>
+</form>
+<div id="channel_auth" data-users="{{ channels[channel_name]['Users'] }}" style="display:none;"></div>
+</div>
+{% endblock %}
