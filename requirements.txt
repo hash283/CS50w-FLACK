@@ -2,3 +2,6 @@ flask
 flask-session
 flask-socketio
 requests
+eventlet
+Werkzeug
+Jinja2
