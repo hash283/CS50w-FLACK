@@ -171,99 +171,103 @@ document.addEventListener("DOMContentLoaded",function()
 	//When the client hears the display message brodcast from the server
 	socket.on("display message",function(data)
 	{
-		let li = document.createElement('li');
-		const msg_username=document.createElement("span");
-		const msg_timestamp=document.createElement("span");
-		const msg_text=document.createElement("span");
-		msg_username.classList.add("msg_username");
-		msg_username.style.color="#660066";
-		msg_username.style.float="left";
-	    msg_username.style.fontSize="15px";
-	    msg_username.style.fontWeight="bold";
-		msg_timestamp.classList.add("msg_timestamp");
-		msg_timestamp.style.fontSize="15px";
-		msg_timestamp.style.fontWeight="bold";
-		msg_timestamp.style.float="right";
-		msg_username.innerHTML="@"+data["username"];
-		msg_timestamp.innerHTML=data["timestamp"];
-		msg_text.classList.add("msg_text");
-		msg_text.innerHTML=data["text"]
-		msg_text.style.fontSize="17px";
-		linebreak = document.createElement("br");
-		li.append(msg_username);
-		li.append(linebreak);
-		li.append(msg_text);
-		li.append(msg_timestamp);
-		const arrowtip=document.createElement("span");
-		arrowtip.classList.add("arrowtip");
-		arrowtip.style.borderRight="20px solid #f2f2f2";
-		arrowtip.style.borderTop="20px solid  #f2f2f2";
-		arrowtip.style.borderBottom="20px solid transparent";
-		arrowtip.style.borderLeft="20px solid transparent";
-		arrowtip.style.position="absolute";
-		arrowtip.style.display="table";
-		arrowtip.style.right="918px";
-		arrowtip.style.top="-0.5px";
-		arrowtip.style.zIndex="1";
-		arrowtip.style.clear="both";
-		arrowtip.style.content="";
-		const lastchild=document.querySelector(".messages").lastElementChild;
-		if(lastchild==null || lastchild==undefined)
+		let channel_posted=data["channel"];
+		if(channel_posted==current_channel_name)
 		{
-			li.setAttribute("data-index",0);
-		}
-		else
-		{
-			let data_index=lastchild.getAttribute("data-index");
-			data_index=parseInt(data_index)+1;
-			li.setAttribute("data-index",data_index);
-		}
-		if(data["username"]==username)
-		{
-			const msg_close=document.createElement("span");
-			msg_close.classList.add("msg_close");
-			msg_close.innerHTML="&times;";
-			msg_close.style.position="absolute"
-			msg_close.style.top="0";
-			msg_close.style.right="4px";
-			msg_close.style.fontSize="24px";
-			msg_close.style.fontWeight="bold";
-			msg_close.style.zIndex="10";
-			li.append(msg_close);
-			msg_close.onmouseenter=function()
-			{
-				msg_close.style.color="#cccccc";
-				msg_close.style.cursor="pointer";
-
-			};
-			msg_close.onmouseleave=function()
-			{
-				msg_close.style.color="black";
-			};
-			msg_close.onclick=function()
-			{
-				let par=msg_close.parentElement;
-				let par_user=par.querySelector(".msg_username").innerHTML;
-				par_user=par_user.split("@")[1];
-				let par_text=par.querySelector(".msg_text").innerHTML;
-				let par_timestamp=par.querySelector(".msg_timestamp").innerHTML;
-				let data_index_value=par.getAttribute("data-index");
-				socket.emit("delete message",{"channel_name":current_channel_name,"username":par_user,"text":par_text,"timestamp":par_timestamp,"index":data_index_value});
-			};
-			li.style.backgroundColor="#80d4ff";
-			arrowtip.style.borderRight="20px solid transparent";
-			arrowtip.style.borderTop="20px solid  #80d4ff";
+			let li = document.createElement('li');
+			const msg_username=document.createElement("span");
+			const msg_timestamp=document.createElement("span");
+			const msg_text=document.createElement("span");
+			msg_username.classList.add("msg_username");
+			msg_username.style.color="#660066";
+			msg_username.style.float="left";
+		    msg_username.style.fontSize="15px";
+		    msg_username.style.fontWeight="bold";
+			msg_timestamp.classList.add("msg_timestamp");
+			msg_timestamp.style.fontSize="15px";
+			msg_timestamp.style.fontWeight="bold";
+			msg_timestamp.style.float="right";
+			msg_username.innerHTML="@"+data["username"];
+			msg_timestamp.innerHTML=data["timestamp"];
+			msg_text.classList.add("msg_text");
+			msg_text.innerHTML=data["text"]
+			msg_text.style.fontSize="17px";
+			linebreak = document.createElement("br");
+			li.append(msg_username);
+			li.append(linebreak);
+			li.append(msg_text);
+			li.append(msg_timestamp);
+			const arrowtip=document.createElement("span");
+			arrowtip.classList.add("arrowtip");
+			arrowtip.style.borderRight="20px solid #f2f2f2";
+			arrowtip.style.borderTop="20px solid  #f2f2f2";
 			arrowtip.style.borderBottom="20px solid transparent";
-			arrowtip.style.borderLeft="20px solid  #80d4ff";
-			arrowtip.style.right="-22px";
-			arrowtip.style.top="-0.4px";
+			arrowtip.style.borderLeft="20px solid transparent";
+			arrowtip.style.position="absolute";
+			arrowtip.style.display="table";
+			arrowtip.style.right="918px";
+			arrowtip.style.top="-0.5px";
+			arrowtip.style.zIndex="1";
+			arrowtip.style.clear="both";
+			arrowtip.style.content="";
+			const lastchild=document.querySelector(".messages").lastElementChild;
+			if(lastchild==null || lastchild==undefined)
+			{
+				li.setAttribute("data-index",0);
+			}
+			else
+			{
+				let data_index=lastchild.getAttribute("data-index");
+				data_index=parseInt(data_index)+1;
+				li.setAttribute("data-index",data_index);
+			}
+			if(data["username"]==username)
+			{
+				const msg_close=document.createElement("span");
+				msg_close.classList.add("msg_close");
+				msg_close.innerHTML="&times;";
+				msg_close.style.position="absolute"
+				msg_close.style.top="0";
+				msg_close.style.right="4px";
+				msg_close.style.fontSize="24px";
+				msg_close.style.fontWeight="bold";
+				msg_close.style.zIndex="10";
+				li.append(msg_close);
+				msg_close.onmouseenter=function()
+				{
+					msg_close.style.color="#cccccc";
+					msg_close.style.cursor="pointer";
+
+				};
+				msg_close.onmouseleave=function()
+				{
+					msg_close.style.color="black";
+				};
+				msg_close.onclick=function()
+				{
+					let par=msg_close.parentElement;
+					let par_user=par.querySelector(".msg_username").innerHTML;
+					par_user=par_user.split("@")[1];
+					let par_text=par.querySelector(".msg_text").innerHTML;
+					let par_timestamp=par.querySelector(".msg_timestamp").innerHTML;
+					let data_index_value=par.getAttribute("data-index");
+					socket.emit("delete message",{"channel_name":current_channel_name,"username":par_user,"text":par_text,"timestamp":par_timestamp,"index":data_index_value});
+				};
+				li.style.backgroundColor="#80d4ff";
+				arrowtip.style.borderRight="20px solid transparent";
+				arrowtip.style.borderTop="20px solid  #80d4ff";
+				arrowtip.style.borderBottom="20px solid transparent";
+				arrowtip.style.borderLeft="20px solid  #80d4ff";
+				arrowtip.style.right="-22px";
+				arrowtip.style.top="-0.4px";
+			}
+			li.append(arrowtip);
+			li.style.marginBottom="10px";
+			li.style.fontFamily="Arial, Helvetica, sans-serif";
+			document.querySelector(".messages").append(li);
+			let messages_scroll=document.querySelector(".messages");
+			messages_scroll.scrollTop = messages_scroll.scrollHeight - messages_scroll.clientHeight;
 		}
-		li.append(arrowtip);
-		li.style.marginBottom="10px";
-		li.style.fontFamily="Arial, Helvetica, sans-serif";
-		document.querySelector(".messages").append(li);
-		let messages_scroll=document.querySelector(".messages");
-		messages_scroll.scrollTop = messages_scroll.scrollHeight - messages_scroll.clientHeight;
 	});
 	//Display the channel on client-side after it is created
 	socket.on("display channel",function(data)

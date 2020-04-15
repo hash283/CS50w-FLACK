@@ -2,19 +2,23 @@
 {% block head %}
 	<script>
 	let channels={{ channel_names|safe }};
+	let users={{users|safe}};
 	if(localStorage.getItem("username"))
 	{
-		if(localStorage.getItem("lastchannel"))
+		if(users.includes(localStorage.getItem("username")))
 		{
-			let lastchannelurl=localStorage.getItem("lastchannel");
-			let lastchannelname=lastchannelurl.split("/")[4];
-			if(channels.includes(lastchannelname))
-				window.location.replace(localStorage.getItem("lastchannel"))
+			if(localStorage.getItem("lastchannel"))
+			{
+				let lastchannelurl=localStorage.getItem("lastchannel");
+				let lastchannelname=lastchannelurl.split("/")[4];
+				if(channels.includes(lastchannelname))
+					window.location.replace(localStorage.getItem("lastchannel"))
+				else
+					window.location.replace("{{ url_for('home') }}");
+			}
 			else
 				window.location.replace("{{ url_for('home') }}");
 		}
-		else
-			window.location.replace("{{ url_for('home') }}");
 	}
 	document.addEventListener("DOMContentLoaded",function()
 	{

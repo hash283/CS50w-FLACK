@@ -16,7 +16,7 @@ channel_names=[]
 @app.route("/",methods=["POST","GET"])
 def signup():
 	if request.method == "GET":
-		return render_template("signup.html",channel_names=json.dumps(channel_names))
+		return render_template("signup.html",channel_names=json.dumps(channel_names),users=json.dumps(users))
 	else:
 		username=request.form.get("username")
 		if username not in users:
@@ -42,7 +42,7 @@ def vote(data):
 	# creating an object msg of message class
 	msg=message(text=text,username=username,timestamp=timestamp)
 	channels[current_channel_name]["Messages"].append(msg)
-	emit("display message",{"text": text,"username":username,"timestamp":timestamp},broadcast=True)
+	emit("display message",{"text": text,"username":username,"timestamp":timestamp,"channel":current_channel_name},broadcast=True)
 
 @socketio.on("create channel")
 def create_channel(data):
