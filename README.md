@@ -26,7 +26,7 @@ List of files:
 ![](https://i.imgur.com/PQucvNp.png)
 ![](https://i.imgur.com/l82yLfH.png)
 
-Issues:
+Issues/Constraints:
 - This project does not make use of any database.
 - For any channel,the maximum no of messages supported is 100.
 
